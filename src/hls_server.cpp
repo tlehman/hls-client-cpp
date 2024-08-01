@@ -3,10 +3,12 @@
 #include <iostream>
 #include <sstream>
 
+using namespace std;
+
 // Function to read the content of a file
-std::string readFile(const std::string &filePath) {
-    std::ifstream file(filePath);
-    std::stringstream buffer;
+string readFile(const string &filePath) {
+    ifstream file(filePath);
+    stringstream buffer;
     buffer << file.rdbuf();
     return buffer.str();
 }
@@ -14,11 +16,11 @@ std::string readFile(const std::string &filePath) {
 // Callback for handling HTTP requests
 int requestHandler(struct mg_connection *conn) {
     const struct mg_request_info *request_info = mg_get_request_info(conn);
-    std::string uri(request_info->local_uri);
+    string uri(request_info->local_uri);
 
     // Serve the playlist file
     if (uri == "/output.m3u8") {
-        std::string content = readFile("./data/output.m3u8");
+        string content = readFile("./data/output.m3u8");
         // HLS Headers
         mg_send_http_ok(conn, "application/vnd.apple.mpegurl", content.size());
         // HLS Body
@@ -27,10 +29,10 @@ int requestHandler(struct mg_connection *conn) {
     }
 
     // Serve the segment files
-    if (uri.find("/output_") == 0 && uri.find(".ts") != std::string::npos) {
-        std::string filePath = "./data" + uri; // Adjust path if necessary
-        std::cout << "Serving " << filePath << std::endl;
-        std::string content = readFile(filePath);
+    if (uri.find("/output_") == 0 && uri.find(".ts") != string::npos) {
+        string filePath = "./data" + uri; // Adjust path if necessary
+        cout << "Serving " << filePath << endl;
+        string content = readFile(filePath);
         // HLS Headers
         mg_send_http_ok(conn, "video/MP2T", content.size());
         // HLS Body
@@ -57,12 +59,12 @@ int main(int argc, char *argv[]) {
     ctx = mg_start(&callbacks, nullptr, options);
 
     if (ctx == nullptr) {
-        printf("Failed to start Civetweb server.\n");
+        cout << "Failed to start Civetweb server." << endl;
         return 1;
     }
 
-    printf("HLS server started on port 8080\n");
-    printf("Access the HLS stream at http://localhost:8080/output.m3u8\n");
+    cout << "HLS server started on port 8080" << endl;
+    cout << "Access the HLS stream at http://localhost:8080/output.m3u8" << endl;
 
     // Wait until the user hits enter
     getchar();
