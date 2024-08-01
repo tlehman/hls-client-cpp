@@ -5,7 +5,6 @@
 
 using namespace std;
 
-// Function to read the content of a file
 string readFile(const string &filePath) {
     ifstream file(filePath);
     stringstream buffer;
@@ -13,7 +12,6 @@ string readFile(const string &filePath) {
     return buffer.str();
 }
 
-// Callback for handling HTTP requests
 int requestHandler(struct mg_connection *conn) {
     const struct mg_request_info *request_info = mg_get_request_info(conn);
     string uri(request_info->local_uri);
@@ -40,7 +38,6 @@ int requestHandler(struct mg_connection *conn) {
         return 1;
     }
 
-    // 404 Not Found for other URIs
     mg_printf(conn, "HTTP/1.1 404 Not Found\r\n"
                     "Content-Length: 0\r\n\r\n");
     return 1;
