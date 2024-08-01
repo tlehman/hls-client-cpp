@@ -5,7 +5,7 @@ SERVER_SOURCES = src/hls_server.cpp src/civetweb.c
 SERVER_TARGET = bin/hls_server
 
 CLIENT_CXXFLAGS = -std=c++11 -Wall -Wdeprecated-declarations -Iinclude -DNO_SSL
-CLIENT_SOURCES = src/hls_client.cpp
+CLIENT_SOURCES = src/hls_client.cpp src/civetweb.c
 CLIENT_TARGET = bin/hls_client
 
 all: server client
