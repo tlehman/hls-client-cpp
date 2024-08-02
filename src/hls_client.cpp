@@ -2,8 +2,15 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <libavformat/avformat.h>
 
 #define MAX_BUFFER_SIZE 8192
+
+
+// read manifest from connection body, parse and store in *manifest struct
+void parseManifest(struct mg_connection *conn, struct playist *manifest) {
+
+}
 
 int main() {
     char error_buffer[256];
