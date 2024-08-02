@@ -26,6 +26,7 @@ See [Streaming Server](/streaming-server) to get the server running, the client 
 The client connects to the server, requests the manifest, and then loops over all the segments, requesting them and buffering them for the player.
 
 ```mermaid
+
 sequenceDiagram
     client->>server: GET /manifest.m3u8
     server-->>client:
