@@ -27,12 +27,13 @@ The client connects to the server, requests the manifest, and then loops over al
 
 ```mermaid
 sequenceDiagram
-  client -> server: GET /manifest.m3u8
-  server --> client:
-  client -> server: get /segment_1.ts
-  server --> client:
-  client -> server: get /segment_2.ts
-  client -> server: get /segment_1.ts
+    client->>server: GET /manifest.m3u8
+    server-->>client:
+    client->>server: GET /segment_1.ts
+    server-->>client:
+    client->>server: GET /segment_2.ts
+    server-->>client:
+
 ```
 
 The "H" in HLS is for HTTP, those right arrows are regular HTTP GET requests
