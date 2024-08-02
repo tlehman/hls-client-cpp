@@ -29,11 +29,11 @@ The client connects to the server, requests the manifest, and then loops over al
 
 sequenceDiagram
     client->>server: GET /manifest.m3u8
-    server-->>client:
+    server-->>client: (return)
     client->>server: GET /segment_1.ts
-    server-->>client:
+    server-->>client: (return)
     client->>server: GET /segment_2.ts
-    server-->>client:
+    server-->>client: (return)
 
 ```
 
