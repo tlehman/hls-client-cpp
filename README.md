@@ -12,11 +12,12 @@ To keep this repo focused on the client side, we will take a 12 second MP4 file 
 ## Streaming Client
 To build the client, run:
 ```shell
-make client
+cmake -B build
+cmake --build build
 ```
 Then to run it, run:
 ```shell
-./bin/hls_client
+./build/hls_client
 ```
 
 See [Streaming Server](/streaming-server) to get the server running, the client will connect to the server.
@@ -51,11 +52,12 @@ The streaming server is a basic [civetweb](https://github.com/civetweb/civetweb)
 
 To build the server, run:
 ```shell
-make server
+cmake -B build
+cmake --build build
 ```
 Then to run it, run:
 ```shell
-./bin/hls_server
+./build/hls_server
 ```
 
 This will create an HLS endpoint at http://localhost:8080/output.m3u8
