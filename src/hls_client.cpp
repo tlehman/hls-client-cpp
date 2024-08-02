@@ -1,53 +1,57 @@
 #include "civetweb.h"
-#include <fstream>
-#include <iostream>
-#include <string>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
-using namespace std;
+#define MAX_BUFFER_SIZE 8192
 
-void fetchManifest(const std::string& uri) {
-    char error[128];
+int main() {
+    char error_buffer[256];
     struct mg_connection *conn;
-
-    int port = 8080;
-    int use_ssl = 0;
-    // Connect to the URI
-    conn = mg_connect_client(uri.c_str(), port, use_ssl, (char*)&error, sizeof(error));
-    if (conn == NULL) {
-        std::cerr << "Failed to connect to " << uri << ": " << error << std::endl;
-        return;
-    }
-
-    // Send a GET request
-    mg_printf(conn, "GET %s HTTP/1.1\r\nHost: %s\r\nConnection: close\r\n\r\n", uri.c_str(), uri.c_str());
-
-    // Read the response
-    char buffer[1024];
+    int ret;
+    char buffer[MAX_BUFFER_SIZE];
     int bytes_read;
-    std::ofstream manifestFile("manifest.m3u8");
-    bool headers_done = false;
-    while ((bytes_read = mg_read(conn, buffer, sizeof(buffer))) > 0) {
-        if (!headers_done) {
-            // Find the end of headers (double newline)
-            char* body_start = strstr(buffer, "\r\n\r\n");
-            if (body_start) {
-                headers_done = true;
-                body_start += 4; // Move past the double newline
-                manifestFile.write(body_start, bytes_read - (body_start - buffer));
-            }
-        } else {
-            manifestFile.write(buffer, bytes_read);
-        }
+
+    mg_init_library(0);
+
+    conn = mg_connect_client("localhost", 8080, 0, error_buffer, sizeof(error_buffer));
+
+    if (conn == NULL) {
+        printf("Error connecting: %s\n", error_buffer);
+        return 1;
     }
-    manifestFile.close();
 
-    // Clean up
+    mg_printf(conn, "GET /output.m3u8 HTTP/1.1\r\n"
+                    "Host: localhost:8080\r\n"
+                    "Connection: close\r\n\r\n");
+
+    ret = mg_get_response(conn, error_buffer, sizeof(error_buffer), 10000);
+    if (ret < 0) {
+        printf("Error getting response: %s\n", error_buffer);
+        mg_close_connection(conn);
+        return 1;
+    }
+
+    // Read and print the response headers
+    const struct mg_response_info *ri = mg_get_response_info(conn);
+
+    printf("Status: %s\n", ri->status_text);
+    printf("Headers:\n");
+    for (int i = 0; i < ri->num_headers; i++) {
+        printf("%s: %s\n", ri->http_headers[i].name, ri->http_headers[i].value);
+    }
+    printf("\nBody:\n");
+
+    // Read and print the response body
+    while ((bytes_read = mg_read(conn, buffer, sizeof(buffer))) > 0) {
+        fwrite(buffer, 1, bytes_read, stdout);
+    }
+
+    // Close the connection
     mg_close_connection(conn);
-}
 
-int main(int argc, char *argv[]) {
-    string uri("http://127.0.0.1:8080/output.m3u8");
-    cout << "HLS client connecting to localhost on port 8080..." << endl;
-    fetchManifest(uri);
+    // Cleanup
+    mg_exit_library();
+
     return 0;
 }

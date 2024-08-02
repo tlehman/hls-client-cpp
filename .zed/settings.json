@@ -1,0 +1,16 @@
+{
+  "languages": {
+    "C": {
+      "language_server": {
+        "command": "clangd",
+        "args": ["--compile-commands-dir=build"]
+      }
+    },
+    "C++": {
+      "language_server": {
+        "command": "clangd",
+        "args": ["--compile-commands-dir=build"]
+      }
+    }
+  }
+}

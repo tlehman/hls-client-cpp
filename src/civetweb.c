@@ -9598,6 +9598,9 @@ connect_socket(
 #endif
 	}
 
+	ip_ver = 4;
+	printf("connect_socket, ip_ver == %d\n", ip_ver);
+
 	if (ip_ver == 0) {
 		if (error != NULL) {
 			error->code = MG_ERROR_DATA_CODE_HOST_NOT_FOUND;

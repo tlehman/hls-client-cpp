@@ -1,0 +1,70 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-std=c++11",
+      "-Wall",
+      "-Wdeprecated-declarations",
+      "-Iinclude",
+      "-DNO_SSL",
+      "-o",
+      "bin/hls_server",
+      "src/hls_server.cpp"
+    ],
+    "directory": "/Users/tobi/src/t/hls-client-cpp",
+    "file": "/Users/tobi/src/t/hls-client-cpp/src/hls_server.cpp",
+    "output": "/Users/tobi/src/t/hls-client-cpp/bin/hls_server"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-std=c++11",
+      "-Wall",
+      "-Wdeprecated-declarations",
+      "-Iinclude",
+      "-DNO_SSL",
+      "-o",
+      "bin/hls_server",
+      "src/civetweb.c"
+    ],
+    "directory": "/Users/tobi/src/t/hls-client-cpp",
+    "file": "/Users/tobi/src/t/hls-client-cpp/src/civetweb.c",
+    "output": "/Users/tobi/src/t/hls-client-cpp/bin/hls_server"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-std=c++11",
+      "-Wall",
+      "-Wdeprecated-declarations",
+      "-Iinclude",
+      "-DNO_SSL",
+      "-o",
+      "bin/hls_client",
+      "src/hls_client.cpp"
+    ],
+    "directory": "/Users/tobi/src/t/hls-client-cpp",
+    "file": "/Users/tobi/src/t/hls-client-cpp/src/hls_client.cpp",
+    "output": "/Users/tobi/src/t/hls-client-cpp/bin/hls_client"
+  },
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-c",
+      "-std=c++11",
+      "-Wall",
+      "-Wdeprecated-declarations",
+      "-Iinclude",
+      "-DNO_SSL",
+      "-o",
+      "bin/hls_client",
+      "src/civetweb.c"
+    ],
+    "directory": "/Users/tobi/src/t/hls-client-cpp",
+    "file": "/Users/tobi/src/t/hls-client-cpp/src/civetweb.c",
+    "output": "/Users/tobi/src/t/hls-client-cpp/bin/hls_client"
+  }
+]
