@@ -1,0 +1,7 @@
+- [ ] Parse the playlist
+- [ ] Loop over the playlist, fetching the segments
+- [ ] demux the segments
+- [ ] decode the streams
+- [ ] buffer the frames
+- [ ] render the frames
+- [ ] add performance metrics
