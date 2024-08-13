@@ -1,4 +1,5 @@
 #include "civetweb.h"
+#include "hls.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -8,8 +9,8 @@
 
 
 // read manifest from connection body, parse and store in *manifest struct
-void parseManifest(struct mg_connection *conn, struct playist *manifest) {
-
+void parseManifest(struct mg_connection *conn, hls::manifest *manifest) {
+    // loop over lines
 }
 
 int main() {
@@ -42,17 +43,8 @@ int main() {
     // Read and print the response headers
     const struct mg_response_info *ri = mg_get_response_info(conn);
 
-    printf("Status: %s\n", ri->status_text);
-    printf("Headers:\n");
-    for (int i = 0; i < ri->num_headers; i++) {
-        printf("%s: %s\n", ri->http_headers[i].name, ri->http_headers[i].value);
-    }
-    printf("\nBody:\n");
-
-    // Read and print the response body
-    while ((bytes_read = mg_read(conn, buffer, sizeof(buffer))) > 0) {
-        fwrite(buffer, 1, bytes_read, stdout);
-    }
+    hls::manifest manifest;
+    parseManifest(conn, &manifest);
 
     // Close the connection
     mg_close_connection(conn);

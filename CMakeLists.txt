@@ -3,6 +3,7 @@ project(HLSClientCPP)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 # Add executable targets
 add_executable(hls_server src/hls_server.cpp)
